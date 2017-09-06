@@ -21,6 +21,8 @@
 		1EC51A2E1F5FEF1B003A8DFA /* Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC51A2D1F5FEF1B003A8DFA /* Id.swift */; };
 		1EC51A301F5FEF5F003A8DFA /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC51A2F1F5FEF5F003A8DFA /* Photo.swift */; };
 		1EC51A321F5FEFC4003A8DFA /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC51A311F5FEFC4003A8DFA /* Serializable.swift */; };
+		1EC51A371F5FF747003A8DFA /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC51A361F5FF747003A8DFA /* Request.swift */; };
+		1EC51A391F5FF88B003A8DFA /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC51A381F5FF88B003A8DFA /* HTTPMethod.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,8 @@
 		1EC51A2D1F5FEF1B003A8DFA /* Id.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Id.swift; sourceTree = "<group>"; };
 		1EC51A2F1F5FEF5F003A8DFA /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		1EC51A311F5FEFC4003A8DFA /* Serializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
+		1EC51A361F5FF747003A8DFA /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		1EC51A381F5FF88B003A8DFA /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				1EC51A2C1F5FEECD003A8DFA /* model */,
+				1EC51A351F5FF719003A8DFA /* request */,
 				1EC51A0E1F5FEDF3003A8DFA /* API.h */,
 				1EC51A0F1F5FEDF3003A8DFA /* Info.plist */,
 			);
@@ -194,8 +199,17 @@
 				1EC51A2F1F5FEF5F003A8DFA /* Photo.swift */,
 				1EC51A311F5FEFC4003A8DFA /* Serializable.swift */,
 			);
-			name = model;
 			path = model;
+			sourceTree = "<group>";
+		};
+		1EC51A351F5FF719003A8DFA /* request */ = {
+			isa = PBXGroup;
+			children = (
+				1EC51A381F5FF88B003A8DFA /* HTTPMethod.swift */,
+				1EC51A361F5FF747003A8DFA /* Request.swift */,
+			);
+			name = request;
+			path = request;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -395,7 +409,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EC51A321F5FEFC4003A8DFA /* Serializable.swift in Sources */,
+				1EC51A371F5FF747003A8DFA /* Request.swift in Sources */,
 				1EC51A301F5FEF5F003A8DFA /* Photo.swift in Sources */,
+				1EC51A391F5FF88B003A8DFA /* HTTPMethod.swift in Sources */,
 				1EC51A2E1F5FEF1B003A8DFA /* Id.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
