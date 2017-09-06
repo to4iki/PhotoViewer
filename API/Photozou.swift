@@ -2,10 +2,10 @@ import Foundation
 
 public enum Result<T, E: Error> {
     case success(T)
-    case error(E)
+    case failure(E)
 }
 
-final class Photozou {
+public final class Photozou {
     private static let session: URLSession = {
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration)
@@ -19,15 +19,15 @@ final class Photozou {
         let task = session.dataTask(with: urlRequest) { (data, response, error) -> Void in
             switch (data, response, error) {
             case (_, _, let error?):
-                completion(Result.error(.connectionError(error)))
+                completion(Result.failure(.connectionError(error)))
             case let (data?, response?, _):
                 do {
                     let value = try request.response(from: data, urlResponse: response)
                     completion(Result.success(value))
                 } catch let error as APIError {
-                    completion(Result.error(error))
+                    completion(Result.failure(error))
                 } catch {
-                    completion(Result.error(.responseParseError(error)))
+                    completion(Result.failure(.responseParseError(error)))
                 }
             default:
                 fatalError("invalid response combination")
