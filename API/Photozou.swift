@@ -1,9 +1,5 @@
 import Foundation
-
-public enum Result<T, E: Error> {
-    case success(T)
-    case failure(E)
-}
+import Result
 
 public final class Photozou {
     private static let session: URLSession = {
@@ -19,15 +15,15 @@ public final class Photozou {
         let task = session.dataTask(with: urlRequest) { (data, response, error) -> Void in
             switch (data, response, error) {
             case (_, _, let error?):
-                completion(Result.failure(.connectionError(error)))
+                completion(Result(error: .connectionError(error)))
             case let (data?, response?, _):
                 do {
                     let value = try request.response(from: data, urlResponse: response)
-                    completion(Result.success(value))
+                    completion(Result(value: value))
                 } catch let error as APIError {
-                    completion(Result.failure(error))
+                    completion(Result(error: error))
                 } catch {
-                    completion(Result.failure(.responseParseError(error)))
+                    completion(Result(error: .responseParseError(error)))
                 }
             default:
                 fatalError("invalid response combination")

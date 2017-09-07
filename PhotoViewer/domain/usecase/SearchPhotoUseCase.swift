@@ -1,7 +1,8 @@
 import API
+import Result
 
 struct SearchPhotoUseCase {
-    // TODO: additional load
+    // TODO: pagination
     func execute(keyword: String, completion: @escaping (Result<[Photo], APIError>) -> Void) {
         Photozou.searchPhoto(keyword: keyword) { result in
             switch result {
