@@ -5,7 +5,7 @@ protocol Request {
     var method: HTTPMethod { get }
     var baseURL: URL { get }
     var path: String { get }
-    var parameters: Any? { get }
+    var parameters: [String: Any]? { get }
     func response(from data: Data, urlResponse: URLResponse) throws -> Response
 }
 
@@ -20,8 +20,7 @@ extension Request {
         func buildURLComponents(url: URL) -> URLComponents? {
             var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
             if case .get = method {
-                let dictionary = parameters as? [String: Any]
-                let queryItems = dictionary?.map { (key: String, value: Any) in
+                let queryItems = parameters?.map { (key: String, value: Any) in
                     URLQueryItem(name: key, value: String(describing: value))
                 }
                 components?.queryItems = queryItems

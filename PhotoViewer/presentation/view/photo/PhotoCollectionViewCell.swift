@@ -1,4 +1,5 @@
 import UIKit
+import API
 import Kingfisher
 
 final class PhotoCollectionViewCell: UICollectionViewCell {
@@ -7,6 +8,6 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet fileprivate weak var imageView: UIImageView!
 
     func setupLayout(photo: Photo) {
-        imageView.kf.setImage(with: photo.url)
+        imageView.kf.setImage(with: photo.imageURL)
     }
 }

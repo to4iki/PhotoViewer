@@ -40,7 +40,7 @@ extension Photozou {
         offset: Int? = nil,
         completion: @escaping (Result<[Photo], APIError>) -> Void)
     {
-        let request = API.PhotoSearch(keyword: keyword, limit: limit, offset: offset)
+        let request = API.SearchPhoto(keyword: keyword, limit: limit, offset: offset)
         send(request, completion: completion)
     }
 }

@@ -1,7 +1,7 @@
 import Foundation
 
 struct API {
-    struct PhotoSearch: Request {
+    struct SearchPhoto: Request {
         typealias Response = [Photo]
 
         var path: String {
@@ -12,7 +12,7 @@ struct API {
             return .get
         }
 
-        var parameters: Any? {
+        var parameters: [String: Any]? {
             var dic: [String: Any] = ["keyword": keyword]
             if let limit = limit {
                 dic["limit"] = limit
@@ -38,6 +38,12 @@ struct API {
                 }
                 guard let info = rawInfo as? [String: Any] else {
                     throw DecodeError.typeMismatch(expected: "[String: Any]", key: "info")
+                }
+                guard let photoNum = info["photo_num"] as? Int else {
+                    throw DecodeError.missingKey("photo_num")
+                }
+                guard photoNum > 0 else {
+                    return []
                 }
                 guard let rawPhotos = info["photo"] else {
                     throw DecodeError.missingKey("photo")
