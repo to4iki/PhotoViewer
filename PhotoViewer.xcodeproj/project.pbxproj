@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1E18E0F61F619A8A0019C6F1 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E18E0F51F619A8A0019C6F1 /* Result.framework */; };
 		1E18E0FA1F619BA90019C6F1 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E18E0F91F619BA90019C6F1 /* Kingfisher.framework */; };
+		1E33862E1F62F7A000BDA35F /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E33862B1F62F7A000BDA35F /* Bond.framework */; };
+		1E33862F1F62F7A000BDA35F /* ReactiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E33862C1F62F7A000BDA35F /* ReactiveKit.framework */; };
+		1E3386301F62F7A000BDA35F /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E33862D1F62F7A000BDA35F /* Diff.framework */; };
 		1E664C131F602A2C0019DBC8 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E664C121F602A2C0019DBC8 /* PhotoCollectionViewCell.swift */; };
 		1E6A1C931F5FECC400844DD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6A1C921F5FECC400844DD6 /* AppDelegate.swift */; };
 		1E6A1C951F5FECC400844DD6 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6A1C941F5FECC400844DD6 /* TopViewController.swift */; };
@@ -81,6 +84,9 @@
 /* Begin PBXFileReference section */
 		1E18E0F51F619A8A0019C6F1 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		1E18E0F91F619BA90019C6F1 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
+		1E33862B1F62F7A000BDA35F /* Bond.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bond.framework; path = Carthage/Build/iOS/Bond.framework; sourceTree = "<group>"; };
+		1E33862C1F62F7A000BDA35F /* ReactiveKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveKit.framework; path = Carthage/Build/iOS/ReactiveKit.framework; sourceTree = "<group>"; };
+		1E33862D1F62F7A000BDA35F /* Diff.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Diff.framework; path = Carthage/Build/iOS/Diff.framework; sourceTree = "<group>"; };
 		1E664C121F602A2C0019DBC8 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		1E6A1C8F1F5FECC400844DD6 /* PhotoViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E6A1C921F5FECC400844DD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +121,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E33862E1F62F7A000BDA35F /* Bond.framework in Frameworks */,
+				1E33862F1F62F7A000BDA35F /* ReactiveKit.framework in Frameworks */,
+				1E3386301F62F7A000BDA35F /* Diff.framework in Frameworks */,
 				1E18E0FA1F619BA90019C6F1 /* Kingfisher.framework in Frameworks */,
 				1EC51A211F5FEDF3003A8DFA /* API.framework in Frameworks */,
 			);
@@ -149,6 +158,9 @@
 		1E18E0F41F619A8A0019C6F1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1E33862B1F62F7A000BDA35F /* Bond.framework */,
+				1E33862C1F62F7A000BDA35F /* ReactiveKit.framework */,
+				1E33862D1F62F7A000BDA35F /* Diff.framework */,
 				1E18E0F91F619BA90019C6F1 /* Kingfisher.framework */,
 				1E18E0F51F619A8A0019C6F1 /* Result.framework */,
 			);
@@ -282,7 +294,6 @@
 				4496BAE61F62BFEE00929DC2 /* pagination */,
 				4496BAE31F62B31E00929DC2 /* repository */,
 			);
-			name = data;
 			path = data;
 			sourceTree = "<group>";
 		};
@@ -291,7 +302,6 @@
 			children = (
 				4496BAE41F62B34500929DC2 /* PhotoRepository.swift */,
 			);
-			name = repository;
 			path = repository;
 			sourceTree = "<group>";
 		};
@@ -300,7 +310,6 @@
 			children = (
 				1ED8C3761F61BBAA008A66B1 /* Pagination.swift */,
 			);
-			name = pagination;
 			path = pagination;
 			sourceTree = "<group>";
 		};
@@ -488,6 +497,9 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ReactiveKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Bond.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Diff.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (
