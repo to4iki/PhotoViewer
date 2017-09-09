@@ -1,9 +1,18 @@
 import UIKit
 import API
+import Bond
 
 final class TopViewController: UIViewController {
     @IBOutlet fileprivate weak var searchBar: UISearchBar!
     @IBOutlet fileprivate weak var collectionView: UICollectionView!
+    @IBOutlet fileprivate weak var indicatorView: UIActivityIndicatorView!
+    
+    fileprivate lazy var collectionViewCellSize: CGSize = {
+        let layout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let width = (self.collectionView.frame.width / 2) - (layout.minimumLineSpacing / 2)
+        let height = width
+        return CGSize(width: width, height: height)
+    }()
 
     fileprivate var reachedBottom = false {
         didSet {
@@ -13,52 +22,69 @@ final class TopViewController: UIViewController {
         }
     }
 
-    fileprivate let repository = PhotoRepository()
-    fileprivate var nextRequest: SearchPhotoRequest?
-    fileprivate var photos: [Photo] = [] {
-        didSet {
-            self.reloadData()
-        }
-    }
-    
+    fileprivate let viewModel = PhotoListViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        collectionView.dataSource = self
         collectionView.delegate = self
         searchBar.becomeFirstResponder()
+        bindViewModel()
     }
 }
 
 extension TopViewController {
-    fileprivate func searchPhoto(keyword: String, limit: Int = 30, offset: Int = 0) {
-        let request = SearchPhotoRequest(keyword: keyword, limit: limit, offset: offset)
-        repository.search(request: request) { result in
-            switch result {
-            case .success(let response):
-                self.photos += response.elements
-                self.nextRequest = response.nextRequest
-            case .failure(let error):
-                print("error: \(error)")
-            }
+    fileprivate func bindViewModel() {
+        viewModel.indicatorViewHidden
+            .bind(to: indicatorView.reactive.isHidden)
+
+        _ = viewModel.state
+            .observeNext { state in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = (state == .requesting)
+        }
+
+        _ = viewModel.noDataViewHidden
+            .skip(first: 1)
+            .debounce(interval: 0.5)
+            .observeNext { [unowned self] isHidden in
+                if !isHidden {
+                    // TODO: show NoDataView
+                    self.presentAlert(message: "No Data")
+                }
+        }
+
+        _ = viewModel.errorViewHidden
+            .observeNext { [unowned self] isHidden in
+                if !isHidden {
+                    // TODO: show RetryRequestView
+                    self.presentAlert(message: "Error")
+                }
+        }
+
+        viewModel.items
+            .bind(to: collectionView) { (items, indexPath, collectionView) -> UICollectionViewCell in
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: PhotoCollectionViewCell.ReuseIdentifier,
+                    for: indexPath) as! PhotoCollectionViewCell
+                cell.setupLayout(photo: items.array[indexPath.row])
+                return cell
         }
     }
 
-    private func next() {
-        if let nextRequest = nextRequest {
-            searchPhoto(keyword: nextRequest.keyword, limit: nextRequest.limit, offset: nextRequest.offset)
-        }
-    }
-
-    fileprivate func reloadData() {
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
+    fileprivate func searchPhoto(keyword: String) {
+        viewModel.clearItems()
+        viewModel.search(keyword: keyword)
     }
 
     fileprivate func didReachBottom() {
         print("scrollViewDidRechBottom")
-        next()
+        viewModel.requestNext()
+    }
+
+    private func presentAlert(message: String, animated flag: Bool = true, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alert, animated: flag, completion: completion)
     }
 }
 
@@ -76,7 +102,7 @@ extension TopViewController: UISearchBarDelegate {
         view.endEditing(true)
         searchBar.showsCancelButton = false
         searchBar.text = nil
-        photos = []
+        viewModel.clearItems()
     }
 
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -85,27 +111,10 @@ extension TopViewController: UISearchBarDelegate {
     }
 }
 
-// MARK: - UICollectionViewDataSource
-extension TopViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.ReuseIdentifier, for: indexPath) as! PhotoCollectionViewCell
-        cell.setupLayout(photo: photos[indexPath.row])
-        return cell
-    }
-}
-
 // MARK: - UICollectionViewDelegateFlowLayout
 extension TopViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // TODO: lazy clauculate
-        let layout = collectionViewLayout as! UICollectionViewFlowLayout
-        let width = (collectionView.frame.width / 2) - (layout.minimumLineSpacing / 2)
-        let height = width
-        return CGSize(width: width, height: height)
+        return collectionViewCellSize
     }
 }
 

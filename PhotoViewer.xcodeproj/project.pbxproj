@@ -177,7 +177,6 @@
 				1E16F4BA1F63060300F24734 /* PhotoListViewModel.swift */,
 				1E3386321F62FABF00BDA35F /* RequestListType.swift */,
 			);
-			name = viewModel;
 			path = viewModel;
 			sourceTree = "<group>";
 		};
